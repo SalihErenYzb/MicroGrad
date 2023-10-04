@@ -18,7 +18,7 @@ class Value( ):
         x = self.data
         out = Value((math.exp(2*x)-1)/(math.exp(2*x)+1),_creator=(self,))
         def tmpbackward():
-            self.grad += 1-out.data**2
+            self.grad += (1-out.data**2)*out.grad
         out._backward = tmpbackward
         return out
     def __mul__(self,other):
