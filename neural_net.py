@@ -26,7 +26,6 @@ class MLP:
         return  inp[0] if len(inp)==1 else inp
     def parameters(self):
         return [param for layer in self.layers for param in layer._parameters()]
-
 mlp = MLP(4,[4,4,1])
 xs = [
     [2.0,3.0,-1.0],
@@ -40,7 +39,7 @@ for id in range(1000):
     #forward
     outs = [mlp(x) for x in xs]
     loss = sum([(out-g)**2 for out,g in zip(outs,ys)])
-    print(loss)
+
     #zerograd
     for r in mlp.parameters():
         r.grad = 0.0    
@@ -52,3 +51,4 @@ for id in range(1000):
     for r in mlp.parameters():
         r.data -= lr*r.grad
     
+print(loss)
